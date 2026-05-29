@@ -8,10 +8,10 @@
 
 :root {
   /* ── Primary palette ── */
-  --color-bg:        #f0f4f8;   /* calm blue-grey page background */
+  --color-bg:        #e8f0fe;   /* light blue page background */
   --color-surface:   #ffffff;   /* clean white cards / form */
-  --color-primary:   #2a7d6f;   /* deep teal: header, buttons */
-  --color-accent:    #f4845f;   /* warm coral: highlights */
+  --color-primary:   #1a56db;   /* vivid blue: header, buttons */
+  --color-accent:    #93c5fd;   /* sky blue: highlights */
   --color-text:      #1a1a2e;   /* 🎨 CHANGE ME: body text */
   --color-done-text: #888;      /* 🎨 CHANGE ME: completed item text */
 
