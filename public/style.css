@@ -8,10 +8,10 @@
 
 :root {
   /* ── Primary palette ── */
-  --color-bg:        #ff6b35;   /* 🎨 CHANGE ME: page background */
-  --color-surface:   #fffbe6;   /* 🎨 CHANGE ME: card / form background */
-  --color-primary:   #d62828;   /* 🎨 CHANGE ME: header, buttons */
-  --color-accent:    #ffe66d;   /* 🎨 CHANGE ME: highlights */
+  --color-bg:        #f0f4f8;   /* calm blue-grey page background */
+  --color-surface:   #ffffff;   /* clean white cards / form */
+  --color-primary:   #2a7d6f;   /* deep teal: header, buttons */
+  --color-accent:    #f4845f;   /* warm coral: highlights */
   --color-text:      #1a1a2e;   /* 🎨 CHANGE ME: body text */
   --color-done-text: #888;      /* 🎨 CHANGE ME: completed item text */
 
