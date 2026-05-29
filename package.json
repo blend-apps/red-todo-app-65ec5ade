@@ -1,0 +1,15 @@
+{
+  "name": "red-todo-app",
+  "version": "1.0.0",
+  "description": "A delightfully ugly TODO app that is begging to be customized.",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "better-sqlite3": "^11.0.0",
+    "express": "^4.19.2"
+  }
+}

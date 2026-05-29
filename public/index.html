@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Red Todo App 📝</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ⚠️ CHANGE ME BANNER — edit or remove in public/index.html -->
+  <div class="change-me-banner">
+    ⚠️&nbsp; This app is painfully ugly.&nbsp;
+    <strong>Customize it on&nbsp;<a href="https://blend.dev" target="_blank">Blend</a></strong>
+    &nbsp;— change the colors, font, layout, anything!&nbsp; ⚠️
+  </div>
+
+  <header>
+    <h1>📝 Red Todo App</h1>
+    <p>The world's most customizable (and least attractive) todo list.</p>
+  </header>
+
+  <main>
+    <form class="add-form" id="addForm">
+      <input
+        type="text"
+        id="todoInput"
+        placeholder="What needs doing? (Type &amp; press Enter)"
+        autocomplete="off"
+        maxlength="500"
+      />
+      <button type="submit">+ Add</button>
+    </form>
+
+    <div class="stats" id="stats" hidden>
+      <span id="statTotal"></span>
+      <span id="statDone"></span>
+    </div>
+
+    <ul class="todo-list" id="todoList"></ul>
+
+    <div class="empty-state" id="emptyState">
+      No todos yet — add one above! 👆
+    </div>
+  </main>
+
+  <footer>
+    Red Todo App &mdash; powered by Node.js + SQLite
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

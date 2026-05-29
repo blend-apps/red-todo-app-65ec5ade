@@ -1,0 +1,55 @@
+# ── Blend Dev Environment Dockerfile ─────────────────────────────────────────
+#
+# This image is used by Blend to provision live dev environments. It extends
+# the Blend dev runtime base, which provides:
+#   - blend-file-daemon (port 9999): live file read/write/search from the API
+#   - entrypoint.sh: git-syncs the fork, then starts this app with hot-reload
+#   - crane: OCI tooling for checkpoint images
+#
+# Build:
+#   docker build -f Dockerfile.dev \
+#     --build-arg BASE_IMAGE=ghcr.io/blend-apps/blend-dev-runtime:latest \
+#     -t ghcr.io/blend-apps/blend-dev-red-todo:latest .
+#
+# Blend catalog config (seed-data.ts):
+#   devImage:          'ghcr.io/blend-apps/blend-dev-red-todo:latest'
+#   devInternalPort:   3000
+#   devInstallCommand: 'npm install'
+#   devCommand:        'node --watch server.js'
+#
+# Environment variables injected at provision time (by Blend/Fly):
+#   BLEND_FILE_DAEMON_TOKEN  — auth token for blend-file-daemon
+#   BLEND_GH_TOKEN           — GitHub token for git operations (clone/fetch/push)
+#   DEV_REPO_URL             — https URL to the user's fork
+#   DEV_BRANCH               — branch to check out
+#   DEV_COMMAND              — command to run the dev server (node --watch server.js)
+#   DEV_INSTALL_COMMAND      — (optional) npm install
+#   DEV_SOURCE_PATH          — /workspace (where the fork lives)
+
+ARG BASE_IMAGE=ghcr.io/blend-apps/blend-dev-runtime:latest
+FROM ${BASE_IMAGE}
+
+# ── Pre-install deps into the image ──────────────────────────────────────────
+# Pre-baking node_modules means the dev env is ready to run without waiting
+# for npm install on every cold boot (the entrypoint will still re-run install
+# if the fork's package.json changed, but it will exit in ~1s if nothing changed).
+
+WORKDIR /workspace
+COPY package*.json ./
+RUN npm install
+
+COPY server.js db.js ./
+COPY public/ ./public/
+
+# ── Checkpoint detection hash ─────────────────────────────────────────────────
+# blend-file-daemon /checkpoint compares current lockfiles against this hash
+# to detect whether dependencies changed and a new checkpoint image is needed.
+RUN mkdir -p /opt/blend && sha256sum package-lock.json > /opt/blend/base-deps.hash
+
+# Data directory (persisted via Fly volume or ephemeral for dev)
+RUN mkdir -p /workspace/data
+
+ENV PORT=3000
+ENV DB_PATH=/workspace/data/todos.db
+
+EXPOSE 3000
