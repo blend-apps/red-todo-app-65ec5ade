@@ -1,4 +1,4 @@
-/* red-todo-app frontend — vanilla JS, no build step */
+/* Todo App — frontend */
 
 const addForm    = document.getElementById('addForm')
 const todoInput  = document.getElementById('todoInput')
